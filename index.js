@@ -2,8 +2,10 @@ const express = require('require')
 const bodyParser = require('bodyparser')
 const ngrok = require('ngrok')
 const termux = require('termux')
-
-const url = await ngrok.connect({port: 8080, configFile: '~/.ngrok2/ngrok.yml'})
+(async function() {
+	const url = await ngrok.connect({port: 8080, configFile: '~/.ngrok2/ngrok.yml'})
+	console.log(`CI available at ${url}`)
+})();
 //Make App Variable
 const app = express()
 //Middlewares
@@ -15,7 +17,7 @@ app.get('/gh_hook', (req, res) => {
 }
 //Listen
 app.listen(8080, () => {
-	console.log(`CI Server Started on ${url}`)
+	console.log(`CI Server Started on port 8080`)
 })
 
 
